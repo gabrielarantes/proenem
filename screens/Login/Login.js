@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 
-import { View, StyleSheet, Platform, Alert, AsyncStorage } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Platform,
+  Alert,
+  AsyncStorage,
+  ActivityIndicator
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Input, Text, Button } from "react-native-elements";
+import { Input, Text, Button, Image } from "react-native-elements";
 
 import { isEmpty } from "lodash";
 
 import axios from "axios";
+
+const logo = require("../../assets/proenem.png");
 
 export default class Login extends Component {
   constructor(props) {
@@ -23,9 +32,9 @@ export default class Login extends Component {
     //verifying if user is logged
     let token = await AsyncStorage.getItem("token");
     if (!isEmpty(token)) {
-      this.setState({ loading: false });
       this.props.navigation.replace("Home");
     }
+    this.setState({ loading: false });
   }
 
   async login() {
@@ -94,49 +103,49 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.root}>
-        {this.state.login ===
-          true && (
-            <View style={{ flex: 1 }}>
-              <Input
-                onChangeText={text => {
-                  this.setState({ login: text });
-                }}
-                value={this.state.login}
-                placeholder="Login"
-                leftIcon={
-                  <Icon
-                    name="user"
-                    size={24}
-                    color="black"
-                    style={{ marginRight: 5 }}
-                  />
-                }
-              />
+        {/* <Image
+          source={{ source: logo }}
+          style={{ width: 400, height: 200 }}
+          PlaceholderContent={<ActivityIndicator />}
+        /> */}
+        <Input
+          onChangeText={text => {
+            this.setState({ login: text });
+          }}
+          value={this.state.login}
+          placeholder="Login"
+          leftIcon={
+            <Icon
+              name="user"
+              size={24}
+              color="black"
+              style={{ marginRight: 5 }}
+            />
+          }
+        />
 
-              <Input
-                placeholder="Senha"
-                value={this.state.password}
-                secureTextEntry={true}
-                onChangeText={text => {
-                  this.setState({ password: text });
-                }}
-                leftIcon={
-                  <Icon
-                    name="lock"
-                    size={24}
-                    color="black"
-                    style={{ marginRight: 5 }}
-                  />
-                }
-              />
+        <Input
+          placeholder="Senha"
+          value={this.state.password}
+          secureTextEntry={true}
+          onChangeText={text => {
+            this.setState({ password: text });
+          }}
+          leftIcon={
+            <Icon
+              name="lock"
+              size={24}
+              color="black"
+              style={{ marginRight: 5 }}
+            />
+          }
+        />
 
-              <Button
-                onPress={() => this.login()}
-                title="ACESSAR"
-                style={{ marginTop: 25 }}
-              />
-            </View>
-          )}
+        <Button
+          onPress={() => this.login()}
+          title="ACESSAR"
+          style={{ marginTop: 25 }}
+        />
       </View>
     );
   }
