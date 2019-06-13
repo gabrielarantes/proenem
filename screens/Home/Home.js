@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-
-import { View, Text } from "react-native-elements";
+import { View, StyleSheet, Platform, Alert, AsyncStorage } from "react-native";
+import { Text } from "react-native-elements";
 
 export default class Home extends Component {
   constructor(props) {
